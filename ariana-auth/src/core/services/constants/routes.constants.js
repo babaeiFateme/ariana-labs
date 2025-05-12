@@ -1,8 +1,10 @@
-const API_ENDPOINTS = {
-    baseUrl: process.env.BASE_URL + "/api",
+const baseUrl = `${import.meta.env.VITE_BASE_URL}/api`;
 
-    // @Segment: auth
-    login: `${baseUrl}/staff/auth`,
+const API_ENDPOINTS = {
+  baseUrl,
+
+  // @Segment: auth
+  login: `${baseUrl}/staff/auth`,
 };
 
 export default API_ENDPOINTS;

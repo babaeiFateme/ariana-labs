@@ -10,8 +10,8 @@ const RegisterUploader = () => {
                 alt="avatar"
             />
 
-            <Button className="border border-['#E2E8F0'] py-1.5 rounded-md min-w-['64px'] w-fit h-fit">
-                Upload
+            <Button className="border border-['#E2E8F0'] rounded-md min-w-['64px'] w-fit h-fit" size="sm">
+                Upload +
             </Button>
         </div>
     );

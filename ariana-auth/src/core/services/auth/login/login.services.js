@@ -26,13 +26,17 @@ import API_ENDPOINTS from '../../../../core/services/constants/routes.constants'
 // export default loginServices;
 
 
-const loginServices = async (credentials) => {
+const loginServices = async () => {
+  const data={
+    username:"ali",
+    password:'03745893475'
+  }
     const response = await fetch(API_ENDPOINTS.login, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(credentials),
+      body: JSON.stringify(data),
     });
   
     if (!response.ok) {

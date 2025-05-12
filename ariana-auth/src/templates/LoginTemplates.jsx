@@ -7,8 +7,8 @@ import {
 
 const LoginTemplates = () => {
     return (
-        <section className="w-full min-h-screen flex justify-center items-center">
-            <div className="p-6 flex flex-col gap-y-6 border border-[##E2E8F0] rounded-lg">
+        <section className="w-full min-h-screen flex justify-center items-center max-w-[386px] mx-auto">
+            <div className="p-6 flex flex-col gap-y-6 border border-[#E2E8F0] rounded-lg">
                 <LoginHeading />
 
                 <LoginForm />
