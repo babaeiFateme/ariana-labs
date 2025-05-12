@@ -3,12 +3,15 @@ import Button from "../../../atoms/Button/Button";
 import PasswordInput from "../../../atoms/PasswordInput/PasswordInput";
 import TextInput from "../../../atoms/TextInput/TextInput";
 import Field from "../../../molecule/Field/Field";
-import useFetch from "../../../../core/hooks/use-fetch/useFetch";
+import useFetch from "../../../../core/hooks/useFetch";
 import API_ENDPOINTS from "../../../../core/services/constants/routes.constants";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const { fetchData, data, isLoading, isError, errorMessage } = useFetch();
     const [form, setForm] = useState({ username: "", password: "" });
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,6 +23,12 @@ const LoginForm = () => {
             url: API_ENDPOINTS.login,
             method: "POST",
             data: form,
+            onSuccess: (result) => {
+                navigate("/dashboard");
+            },
+            onError: (error) => {
+                console.error("Login failed:", error.message);
+            },
         });
     };
     return (
