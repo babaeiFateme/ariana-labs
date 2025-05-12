@@ -1,19 +1,20 @@
 import { useState } from "react";
-import loginRequest from "../../services/auth/login/loginRequest";
+import requestHandler from "../../utils/request/request-handler.utils";
 
-const useLogin = () => {
+const useFetch = () => {
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [data, setData] = useState(null);
 
-  const login = async (credentials) => {
+  const fetchData = async ({ url, method = "GET", data = null, headers = {} }) => {
     setIsLoading(true);
     setIsError(false);
     setErrorMessage("");
+    setData(null);
 
     try {
-      const result = await loginRequest(credentials);
+      const result = await requestHandler({ url, method, data, headers });
       setData(result);
     } catch (error) {
       setIsError(true);
@@ -23,7 +24,7 @@ const useLogin = () => {
     }
   };
 
-  return { login, data, isLoading, isError, errorMessage };
+  return { fetchData, data, isLoading, isError, errorMessage };
 };
 
-export default useLogin;
+export default useFetch;

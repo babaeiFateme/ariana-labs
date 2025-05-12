@@ -3,16 +3,24 @@ import Button from "../../../atoms/Button/Button";
 import PasswordInput from "../../../atoms/PasswordInput/PasswordInput";
 import TextInput from "../../../atoms/TextInput/TextInput";
 import Field from "../../../molecule/Field/Field";
-import useLogin from "../../../../core/hooks/use-fetch/useLogin";
+import useFetch from "../../../../core/hooks/use-fetch/useFetch";
+import API_ENDPOINTS from "../../../../core/services/constants/routes.constants";
 
 const LoginForm = () => {
-    const [password, setPassword] = useState("");
-    const { login, data, isLoading, isError, errorMessage } = useLogin();
+    const { fetchData, data, isLoading, isError, errorMessage } = useFetch();
+    const [form, setForm] = useState({ email: "", password: "" });
+  
+    const handleChange = (e) => {
+      setForm({ ...form, [e.target.name]: e.target.value });
+    };
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      login({ username: "ali", password: "03745893475" });
-      console.log(data);
+      fetchData({
+        url: API_ENDPOINTS.login,
+        method: "POST",
+        data: form,
+      });
     };
     return (
         <form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>

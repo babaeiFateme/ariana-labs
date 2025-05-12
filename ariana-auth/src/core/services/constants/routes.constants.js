@@ -4,7 +4,7 @@ const API_ENDPOINTS = {
   baseUrl,
 
   // @Segment: auth
-  login: `${baseUrl}/staff/auth`,
+  login: `${baseUrl}/staff/auth/`,
 };
 
 export default API_ENDPOINTS;
