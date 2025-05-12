@@ -6,7 +6,7 @@ const Button = ({ variant = "base", className, children, ...props }) => {
         <button
             {...props}
             className={cn(
-                "w-full px-2 py-4 font-medium text-sm leading-6 rounded-md",
+                "w-full px-2 font-medium text-sm leading-6 rounded-md",
                 className,
                 buttonStyle.variants[variant]
             )}

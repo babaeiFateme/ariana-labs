@@ -1,8 +1,4 @@
 import React from "react";
-import Field from "../components/molecule/Field/Field";
-import TextInput from "../components/atoms/TextInput/TextInput";
-import PasswordInput from "../components/atoms/PasswordInput/PasswordInput";
-import Button from "../components/atoms/Button/Button";
 import Link from "../components/atoms/Link/Link";
 import {
     LoginHeading,
@@ -20,7 +16,7 @@ const LoginTemplates = () => {
                 <div className="flex gap-1 text-black font-regular text-sm items-center leading-5 justify-center">
                     <span>Don’t have an account ?</span>
 
-                    <Link to="/register">Sign up</Link>
+                    <Link href="/register">Sign up</Link>
                 </div>
             </div>
         </section>

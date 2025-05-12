@@ -14,7 +14,9 @@ const LoginForm = () => {
                 <PasswordInput placeholder="Please enter your password" />
             </Field>
 
-            <Button variant="primary">Login</Button>
+            <Button variant="primary" className={"py-4"}>
+                Login
+            </Button>
         </form>
     );
 };
