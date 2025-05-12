@@ -1,9 +1,7 @@
-import React from 'react'
+import DashboardTemplate from "../../templates/DashboardTemplate";
 
 const Dashboard = () => {
-  return (
-    <div>Dashboard</div>
-  )
-}
+    return <DashboardTemplate />;
+};
 
-export default Dashboard
+export default Dashboard;
