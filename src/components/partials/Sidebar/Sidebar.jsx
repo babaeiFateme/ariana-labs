@@ -11,7 +11,7 @@ const Sidebar = () => {
         navigate("/"); 
     };
     return (
-        <aside className="bg-[#F8FAFC] w-[240px] border border-[#E2E8F0] flex flex-col justify-between h-screen px-2 py-6">
+        <aside className="bg-gray-250 w-[240px] border border-gray-350 flex flex-col justify-between h-screen px-2 py-6">
             <div className=" mb-10 mt-10 text-center">
                 <img
                     src={user}
@@ -23,7 +23,7 @@ const Sidebar = () => {
                     Shahab Hosseini
                 </div>
 
-                <div className="font-normal text-[15px] leading-6 text-[#585858]">
+                <div className="font-normal text-[15px] leading-6 text-gray-850">
                     @ShahabH
                 </div>
             </div>
