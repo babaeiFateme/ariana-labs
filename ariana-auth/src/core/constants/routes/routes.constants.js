@@ -1,7 +1,7 @@
-const ROUssTES = { 
+const ROUTES = { 
     Login : '/',
     Register : '/register',
     Dashboard: '/dashboard'
 }
 
-export default ROUssTES
+export default ROUTES

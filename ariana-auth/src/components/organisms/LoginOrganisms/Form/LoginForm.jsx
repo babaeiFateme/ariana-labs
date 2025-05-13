@@ -37,9 +37,15 @@ const LoginForm = () => {
                 url: API_ENDPOINTS.login,
                 method: "POST",
                 data: form,
-                onSuccess: () => {
+                
+                onSuccess: (result) => {
+                    const { token } = result; 
+
+                    localStorage.setItem("token", token);
+
                     navigate("/dashboard");
                 },
+
                 onError: (error) => {
                     console.error("Login failed:", error.message);
                 },
@@ -49,31 +55,29 @@ const LoginForm = () => {
 
     return (
         <form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
-            <Field name={"Username"}>
+            <Field label="Username" name="username" errors={errors}>
                 <TextInput
                     placeholder="Please enter your username"
                     value={form.username}
                     onChange={handleChange}
                     name="username"
                 />
-                {errors.username && (
-                    <p className="text-red-500">{errors.username}</p>
-                )}
             </Field>
 
-            <Field name={"Password"}>
+            <Field label="Password" name="password" errors={errors}>
                 <PasswordInput
                     placeholder="Please enter your password"
                     value={form.password}
                     onChange={handleChange}
                     name="password"
                 />
-                {errors.password && (
-                    <p className="text-red-500">{errors.password}</p>
-                )}
             </Field>
 
-            {isError && <div className="text-red-500 text-center">Invalid username or password</div>}
+            {isError && (
+                <div className="text-red-500 text-center">
+                    Invalid username or password
+                </div>
+            )}
 
             <Button
                 variant="primary"

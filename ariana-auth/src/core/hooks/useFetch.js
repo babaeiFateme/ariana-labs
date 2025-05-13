@@ -24,13 +24,12 @@ const useFetch = () => {
             const result = await requestHandler({ url, method, data, headers });
             setData(result);
 
-            // Trigger the onSuccess callback if it exists
             if (onSuccess) onSuccess(result);
         } catch (error) {
             setIsError(true);
+
             setErrorMessage(error.message);
 
-            // Trigger the onError callback if it exists
             if (onError) onError(error);
         } finally {
             setIsLoading(false);
