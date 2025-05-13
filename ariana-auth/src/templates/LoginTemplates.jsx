@@ -1,27 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "../components/atoms/Link/Link";
 import {
     LoginHeading,
     LoginForm,
 } from "../components/organisms/LoginOrganisms";
-import { useNavigate } from "react-router-dom";
 import ROUTES from "../core/constants/routes/routes.constants";
 
 const LoginTemplates = () => {
-    const navigate = useNavigate();
-    const [token, setToken] = useState(null);
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem("token");
-        setToken(storedToken);
-
-        if (storedToken) {
-            navigate(ROUTES.Dashboard);
-        } else {
-            navigate(ROUTES.Login);
-        }
-    }, [navigate]);
-    
 
     return (
         <section className="w-full min-h-screen flex justify-center items-center max-w-[386px] mx-auto">

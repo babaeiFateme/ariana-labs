@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ROUTES from "./core/constants/routes/routes.constants";
 
@@ -9,6 +9,26 @@ import Login from "./pages/auth/Login";
 import NotFound from "./pages/not-found";
 
 const App = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [token, setToken] = useState(null);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+
+        setToken(storedToken);
+
+        if (storedToken) {
+            navigate(ROUTES.Dashboard);
+        } else if (!storedToken && location.pathname.includes("dashboard")) {
+            navigate(ROUTES.Login);
+        }
+
+        if (storedToken && !location.pathname.includes("dashboard")) {
+            navigate(ROUTES.Dashboard);
+        }
+    }, [navigate]);
+    
     return (
         <Routes>
             <Route path={ROUTES.Login} element={<Login />} />

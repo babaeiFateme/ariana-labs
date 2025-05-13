@@ -2,7 +2,6 @@ import React from "react";
 
 const Field = ({ children, label, name, errors }) => {
     const errorMessage = errors?.[name];
-    console.log(errors);
     return (
         <>
             <div>
