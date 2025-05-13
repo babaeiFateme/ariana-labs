@@ -33,7 +33,7 @@ const LoginTemplates = () => {
                 <div className="flex gap-1 text-black font-regular text-sm items-center leading-5 justify-center">
                     <span>Don’t have an account ?</span>
 
-                    <Link href="/register">Sign up</Link>
+                    <Link href={ROUTES.Register} className="underline">Sign up</Link>
                 </div>
             </div>
         </section>

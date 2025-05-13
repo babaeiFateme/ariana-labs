@@ -4,6 +4,7 @@ import {
     RegisterHeading,
 } from "../components/organisms/RegisterOrganisms";
 import Link from "../components/atoms/Link/Link";
+import ROUTES from "../core/constants/routes/routes.constants";
 
 const RegisterTemplate = () => {
     return (
@@ -16,7 +17,7 @@ const RegisterTemplate = () => {
                 <div className="flex gap-1 text-black font-regular text-sm items-center leading-5 justify-center">
                     <span>Don’t have an account ?</span>
 
-                    <Link href="/">Sign in</Link>
+                    <Link href={ROUTES.Login} className="underline">Sign in</Link>
                 </div>
             </div>
         </section>
