@@ -1,7 +1,15 @@
 import cn from "../../../core/utils/cn/cn.utils";
 import buttonStyle from "./Button.constants";
 
-const Button = ({ variant = "base",size="default", className, children, ...props }) => {
+const Button = ({
+    variant = "base",
+    size = "default",
+    className,
+    children,
+    icon,
+    iconPosition = "start",
+    ...props
+}) => {
     return (
         <button
             {...props}
@@ -12,7 +20,9 @@ const Button = ({ variant = "base",size="default", className, children, ...props
                 buttonStyle.size[size]
             )}
         >
+            {icon && iconPosition === "start" && icon}
             {children}
+            {icon && iconPosition === "end" && icon}
         </button>
     );
 };
