@@ -4,8 +4,8 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import ROUTES from "./core/constants/routes/routes.constants";
 
 import Register from "./pages/auth/Register";
-import Login from "./pages/auth/login";
 import Layout from "./components/layouts/Layout";
+import Login from "./pages/auth/Login";
 
 const App = () => {
     return (
