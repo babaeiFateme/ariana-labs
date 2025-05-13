@@ -6,9 +6,16 @@ const Field = ({ children, label, name, errors }) => {
         <>
             <div>
                 <div className="w-full flex flex-col gap-y-2">
-                    <label className="text-sm font-medium leading-5">
+                {label && (
+                    <label
+                        htmlFor={name}
+                        className={`text-sm font-medium leading-5 ${
+                            errorMessage ? "text-destructive" : ""
+                        }`}
+                    >
                         {label}
                     </label>
+                )}
                     {children}
                 </div>
                 {errorMessage && (
