@@ -6,6 +6,7 @@ import ROUTES from "./core/constants/routes/routes.constants";
 import Register from "./pages/auth/Register";
 import Layout from "./components/layouts/Layout";
 import Login from "./pages/auth/Login";
+import NotFound from "./pages/not-found";
 
 const App = () => {
     return (
@@ -16,6 +17,8 @@ const App = () => {
             <Route path={ROUTES.Dashboard} element={<Layout />}>
                 <Route index element={<Dashboard />} />
             </Route>
+
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 };
