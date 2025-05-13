@@ -1,8 +1,16 @@
 import Button from "../../atoms/Button/Button";
 import Arrow from "../../icons/Arrow";
 import user from "../../../../public/images/pages/dashboard/user.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+    const navigate = useNavigate();
+
+
+    const handleLogout = () => {
+        localStorage.removeItem("token"); 
+        navigate("/"); 
+    };
     return (
         <aside className="bg-[#F8FAFC] w-[240px] border border-[#E2E8F0] flex flex-col justify-between h-screen px-2 py-6">
             <div className=" mb-10 mt-10 text-center">
@@ -25,6 +33,7 @@ const Sidebar = () => {
                 variant="destructive"
                 icon={<Arrow />}
                 className="flex gap-1.5 items-center justify-center"
+                onClick={handleLogout}
             >
                 Logout
             </Button>
