@@ -2,13 +2,17 @@ import Button from "../../atoms/Button/Button";
 import Arrow from "../../icons/Arrow";
 import user from "../../../../public/images/pages/dashboard/user.jpg";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../atoms/Modal/Modal";
+import { useState } from "react";
+import Shock from "../../icons/Shock";
 
 const Sidebar = () => {
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleLogout = () => {
-        localStorage.removeItem("token"); 
-        navigate("/"); 
+        localStorage.removeItem("token");
+        navigate("/");
     };
     return (
         <aside className="bg-gray-250 w-[240px] border border-gray-350 flex flex-col justify-between h-screen px-2 py-6">
@@ -32,10 +36,41 @@ const Sidebar = () => {
                 variant="destructive"
                 icon={<Arrow />}
                 className="flex gap-1.5 items-center justify-center"
-                onClick={handleLogout}
+                onClick={() => setIsModalOpen(true)}
             >
                 Logout
             </Button>
+
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <div className="flex justify-center mb-2">
+                    <Shock />
+                </div>
+
+                <h2 className="text-sm font-semibold mb-2 text-center">
+                    Log Out
+                </h2>
+
+                <p className="text-sm font-normal mb-6 text-center">
+                    Are you sure you want to sign out of your account?{" "}
+                </p>
+
+                <div className="flex justify-center gap-2">
+                    <Button
+                        onClick={handleLogout}
+                        className="grow border border-gray"
+                    >
+                        Log out
+                    </Button>
+
+                    <Button
+                        variant="primary"
+                        onClick={() => setIsModalOpen(false)}
+                        className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 grow"
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </Modal>
         </aside>
     );
 };
