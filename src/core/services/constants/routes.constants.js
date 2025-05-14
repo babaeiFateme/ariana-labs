@@ -7,7 +7,7 @@ const API_ENDPOINTS = {
     login: `${baseUrl}/staff/auth/`,
     register: `${baseUrl}/staff/register/`,
     current_user: `${baseUrl}/staff/current_user/`,
-    tweet_create: `${baseUrl}/tweet/`,
+    tweet: `${baseUrl}/tweet/`,
 };
 
 export default API_ENDPOINTS;

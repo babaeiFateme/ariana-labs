@@ -8,8 +8,11 @@ import Button from "../../../atoms/Button/Button";
 import useFetch from "../../../../core/hooks/useFetch";
 import API_ENDPOINTS from "../../../../core/services/constants/routes.constants";
 import useFormValidation from "../../../../core/hooks/useFormValidation";
-const TweetForm = () => {
+import { useRef } from "react";
+
+const TweetForm = ({onPostSuccess }) => {
     const { fetchData, isLoading, isError } = useFetch();
+    const formRef = useRef(null);
 
     const validationRules = {
         text: {
@@ -28,7 +31,7 @@ const TweetForm = () => {
 
         if (validate()) {
             fetchData({
-                url: API_ENDPOINTS.tweet_create,
+                url: API_ENDPOINTS.tweet,
                 method: "POST",
                 data: form,
                 headers: {
@@ -38,6 +41,8 @@ const TweetForm = () => {
 
                 onSuccess: (result) => {
                     console.log(result);
+                    onPostSuccess?.();
+                    formRef.current?.reset(); 
                 },
 
                 onError: (error) => {
@@ -62,7 +67,7 @@ const TweetForm = () => {
                 </div>
             </Field>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} ref={formRef} >
                 <div className="border border-gray-200 rounded-md p-4 mt-[22px]">
                     <div className="relative flex gap-2 items-start">
                         <img

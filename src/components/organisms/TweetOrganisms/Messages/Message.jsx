@@ -5,13 +5,13 @@ import EmptyState from "../../../atoms/EmptyState/EmptyState";
 import TimeHandler from "../../../../core/helpers/TimeHandler";
 import Skeleton from "../../../atoms/Skeleton/Skeleton";
 
-const Message = () => {
+const Message = ({shouldRefetch}) => {
     const { fetchData, isLoading, isError } = useFetch();
     const [data, useData] = useState(null);
 
     useEffect(() => {
         fetchData({
-            url: API_ENDPOINTS.tweet_create,
+            url: API_ENDPOINTS.tweet,
             method: "GET",
             headers: {
                 Authorization: `Token ${localStorage.getItem("token")}`,
@@ -24,7 +24,7 @@ const Message = () => {
                 console.error("Failed to fetch messages:", error.message);
             },
         });
-    }, []);
+    }, [shouldRefetch]);
 
     const isEmpty = !data || data.length === 0;
 
