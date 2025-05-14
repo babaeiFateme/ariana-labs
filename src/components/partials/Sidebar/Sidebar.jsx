@@ -1,10 +1,11 @@
 import Button from "../../atoms/Button/Button";
 import Arrow from "../../icons/Arrow";
 import user from "../../../../public/images/pages/dashboard/user.jpg";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Modal from "../../atoms/Modal/Modal";
 import { useState } from "react";
 import Shock from "../../icons/Shock";
+import ROUTES from "../../../core/constants/routes/routes.constants";
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -16,20 +17,32 @@ const Sidebar = () => {
     };
     return (
         <aside className="bg-gray-250 w-[240px] border border-gray-350 flex flex-col justify-between h-screen px-2 py-6">
-            <div className=" mb-10 mt-10 text-center">
-                <img
-                    src={user}
-                    alt="user"
-                    className="w-16 aspect-square rounded-full mx-auto"
-                />
+            <div>
+                <div className=" mb-10 mt-10 text-center">
+                    <img
+                        src={user}
+                        alt="user"
+                        className="w-16 aspect-square rounded-full mx-auto"
+                    />
 
-                <div className="font-bold text-['15px'] leading-6 text-black mt-2">
-                    Shahab Hosseini
+                    <div className="font-bold text-['15px'] leading-6 text-black mt-2">
+                        Shahab Hosseini
+                    </div>
+
+                    <div className="font-normal text-[15px] leading-6 text-gray-850">
+                        @ShahabH
+                    </div>
                 </div>
 
-                <div className="font-normal text-[15px] leading-6 text-gray-850">
-                    @ShahabH
-                </div>
+                <ul className="p-2 *:mb-2">
+                    <li>
+                        <Link to={ROUTES.Dashboard}>Dashboard</Link>
+                    </li>
+                    
+                    <li>
+                        <Link to={ROUTES.Tweet}>Tweet</Link>
+                    </li>
+                </ul>
             </div>
 
             <Button
