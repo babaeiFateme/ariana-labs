@@ -72,35 +72,37 @@ const TweetForm = ({ onPostSuccess, searchTerm, setSearchTerm }) => {
                 </div>
             </Field>
 
-            <form onSubmit={handleSubmit} ref={formRef}>
-                <div className="border border-gray-200 rounded-md p-4 mt-[22px]">
-                    <div className="relative flex gap-2 items-start">
-                        <img
-                            src={img}
-                            alt="user"
-                            className="w-10 aspect-square rounded-full"
-                        />
-                        <Field name="text" className="grow" errors={errors}>
-                            <TextAreaInput
-                                rows="4"
-                                className="border-0 mt-1"
-                                value={form.text}
-                                onChange={handleChange}
-                                placeholder="What ‘s Happening ?"
-                                name="text"
+            {!searchTerm && (
+                <form onSubmit={handleSubmit} ref={formRef}>
+                    <div className="border border-gray-200 rounded-md p-4 mt-[22px]">
+                        <div className="relative flex gap-2 items-start">
+                            <img
+                                src={img}
+                                alt="user"
+                                className="w-10 aspect-square rounded-full"
                             />
-                        </Field>
-                    </div>
+                            <Field name="text" className="grow" errors={errors}>
+                                <TextAreaInput
+                                    rows="4"
+                                    className="border-0 mt-1"
+                                    value={form.text}
+                                    onChange={handleChange}
+                                    placeholder="What ‘s Happening ?"
+                                    name="text"
+                                />
+                            </Field>
+                        </div>
 
-                    <Button
-                        type="submit"
-                        variant="primary"
-                        className="w-fit block mr-0 ml-auto py-2 !px-[25px] mt-2"
-                    >
-                        Post
-                    </Button>
-                </div>
-            </form>
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            className="w-fit block mr-0 ml-auto py-2 !px-[25px] mt-2"
+                        >
+                            Post
+                        </Button>
+                    </div>
+                </form>
+            )}
         </>
     );
 };
