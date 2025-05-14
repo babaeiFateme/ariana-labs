@@ -21,7 +21,7 @@ const useFetch = () => {
         setData(null);
 
         try {
-            const result = await requestHandler({ url, method, data, headers });
+            const result = await requestHandler({ url, method, data, headers});
             setData(result);
 
             if (onSuccess) onSuccess(result);

@@ -25,7 +25,7 @@ const Message = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-[13px] h-[61px] overflow-auto font-light font-sm">
+                            <div className="mt-[13px] min-h-[61px] overflow-auto font-light font-sm">
                                 {tweet.message}
                             </div>
                         </li>

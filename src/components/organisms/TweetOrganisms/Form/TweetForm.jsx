@@ -5,7 +5,49 @@ import Field from "../../../molecule/Field/Field";
 
 import img from "../../../../../public/images/pages/tweet/user.png";
 import Button from "../../../atoms/Button/Button";
+import useFetch from "../../../../core/hooks/useFetch";
+import API_ENDPOINTS from "../../../../core/services/constants/routes.constants";
+import useFormValidation from "../../../../core/hooks/useFormValidation";
 const TweetForm = () => {
+    const { fetchData, isLoading, isError } = useFetch();
+
+    // Form validation rules
+    const validationRules = {
+        text: {
+            required: true,
+            minLength: 1,
+        },
+    };
+
+    const { form, errors, handleChange, validate } = useFormValidation(
+        { text: "" },
+        validationRules
+    );
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (validate()) {
+          
+            fetchData({
+                url: API_ENDPOINTS.tweet_create,
+                method: "POST",
+                data: form,
+                headers: {
+                    "X-CSRFTOKEN": localStorage.getItem("token"),
+                },
+
+                onSuccess: (result) => {
+                    console.log(result);
+                },
+
+                onError: (error) => {
+                    console.error("Login failed:", error.message);
+                },
+            });
+        }
+    };
+
     return (
         <>
             <Field>
@@ -21,7 +63,7 @@ const TweetForm = () => {
                 </div>
             </Field>
 
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="border border-gray-200 rounded-md p-4 mt-[22px]">
                     <div className="relative flex gap-2 items-start">
                         <img
@@ -29,19 +71,22 @@ const TweetForm = () => {
                             alt="user"
                             className="w-10 aspect-square rounded-full"
                         />
-                        <Field name="message">
+                        <Field name="text" className="grow" errors={errors}>
                             <TextAreaInput
-                                rows="5"
+                                rows="4"
                                 className="border-0 mt-1"
+                                value={form.text}
+                                onChange={handleChange}
                                 placeholder="What ‘s Happening ?"
-                                name="message"
+                                name="text"
                             />
                         </Field>
                     </div>
+
                     <Button
                         type="submit"
                         variant="primary"
-                        className="w-fit block mr-0 ml-auto py-2 !px-[25px]"
+                        className="w-fit block mr-0 ml-auto py-2 !px-[25px] mt-2"
                     >
                         Post
                     </Button>
