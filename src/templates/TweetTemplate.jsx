@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { TweetForm } from "../components/organisms/TweetOrganisms";
 import Message from "../components/organisms/TweetOrganisms/Messages/Message";
+import useDebounce from "../core/hooks/useDebounce";
 
 const TweetTemplate = () => {
     const [shouldRefetch, setShouldRefetch] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const debouncedValue = useDebounce(searchTerm, 500);
 
     const handlePostSuccess = () => {
         setShouldRefetch((prev) => !prev);
@@ -18,7 +20,7 @@ const TweetTemplate = () => {
                 setSearchTerm={setSearchTerm}
             />
 
-            <Message shouldRefetch={shouldRefetch} searchTerm={searchTerm} />
+            <Message shouldRefetch={shouldRefetch} searchTerm={debouncedValue} />
         </div>
     );
 };
