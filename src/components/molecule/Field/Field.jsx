@@ -1,10 +1,10 @@
 import React from "react";
 
-const Field = ({ children, label, name, errors }) => {
+const Field = ({ children, label, name, errors , className }) => {
     const errorMessage = errors?.[name];
     return (
         <>
-            <div>
+            <div className={className}>
                 <div className="w-full flex flex-col gap-y-2">
                 {label && (
                     <label
