@@ -10,9 +10,12 @@ import API_ENDPOINTS from "../../../../core/services/constants/routes.constants"
 import useFormValidation from "../../../../core/hooks/useFormValidation";
 import { useRef } from "react";
 
-const TweetForm = ({onPostSuccess }) => {
-    const { fetchData, isLoading, isError } = useFetch();
+const TweetForm = ({ onPostSuccess, searchTerm, setSearchTerm }) => {
     const formRef = useRef(null);
+
+    const searchRef = useRef("");
+
+    const { fetchData, isLoading, isError } = useFetch();
 
     const validationRules = {
         text: {
@@ -40,9 +43,8 @@ const TweetForm = ({onPostSuccess }) => {
                 },
 
                 onSuccess: (result) => {
-                    console.log(result);
                     onPostSuccess?.();
-                    formRef.current?.reset(); 
+                    formRef.current?.reset();
                 },
 
                 onError: (error) => {
@@ -60,6 +62,9 @@ const TweetForm = ({onPostSuccess }) => {
                         className="max-w-['664px'] w-full padding-style"
                         name="search"
                         placeholder="search ..."
+                        searchRef={searchRef}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <div className="absolute left-3 top-1/2 transform -translate-y-1/2 z-20">
                         <Search />
@@ -67,7 +72,7 @@ const TweetForm = ({onPostSuccess }) => {
                 </div>
             </Field>
 
-            <form onSubmit={handleSubmit} ref={formRef} >
+            <form onSubmit={handleSubmit} ref={formRef}>
                 <div className="border border-gray-200 rounded-md p-4 mt-[22px]">
                     <div className="relative flex gap-2 items-start">
                         <img

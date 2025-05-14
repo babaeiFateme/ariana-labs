@@ -5,7 +5,7 @@ import EmptyState from "../../../atoms/EmptyState/EmptyState";
 import TimeHandler from "../../../../core/helpers/TimeHandler";
 import Skeleton from "../../../atoms/Skeleton/Skeleton";
 
-const Message = ({shouldRefetch}) => {
+const Message = ({ shouldRefetch, searchTerm }) => {
     const { fetchData, isLoading, isError } = useFetch();
     const [data, useData] = useState(null);
 
@@ -25,6 +25,24 @@ const Message = ({shouldRefetch}) => {
             },
         });
     }, [shouldRefetch]);
+
+
+    useEffect(() => {
+        fetchData({
+            url: `https://mock.arianalabs.io/api/tweet/?search=${searchTerm}`,
+            method: "GET",
+            headers: {
+                Authorization: `Token ${localStorage.getItem("token")}`,
+                "X-CSRFToken": localStorage.getItem("token") ?? "",
+            },
+            onSuccess: (result) => {
+                useData(result.results);
+            },
+            onError: (error) => {
+                console.error("Failed to fetch messages:", error.message);
+            },
+        });
+    }, [searchTerm]);
 
     const isEmpty = !data || data.length === 0;
 
