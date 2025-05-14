@@ -6,7 +6,10 @@ const COLOR_PALETTES = {
     gray: {
         250: "#F8FAFC",
         350: "#E2E8F0",
+        800: "#64748B",
         850: "#585858",
+        900: "#999999",
+        650: "#78788014",
     },
 };
 export default COLOR_PALETTES;
