@@ -11,7 +11,6 @@ import useFormValidation from "../../../../core/hooks/useFormValidation";
 const TweetForm = () => {
     const { fetchData, isLoading, isError } = useFetch();
 
-    // Form validation rules
     const validationRules = {
         text: {
             required: true,
@@ -28,13 +27,13 @@ const TweetForm = () => {
         e.preventDefault();
 
         if (validate()) {
-          
             fetchData({
                 url: API_ENDPOINTS.tweet_create,
                 method: "POST",
                 data: form,
                 headers: {
-                    "X-CSRFTOKEN": localStorage.getItem("token"),
+                    Authorization: `Token ${localStorage.getItem("token")}`,
+                    "X-CSRFToken": `Token ${localStorage.getItem("token")}`,
                 },
 
                 onSuccess: (result) => {

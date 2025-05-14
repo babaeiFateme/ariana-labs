@@ -1,6 +1,7 @@
 import cn from "../../../core/utils/cn/cn.utils";
+import defaultImg from "../../../../public/images/_general/empty-state.png";
 
-const EmptyState = ({ img, imgClassName, children }) => {
+const EmptyState = ({ img = defaultImg, imgClassName, children }) => {
     return (
         <div className="flex gap-1 items-center justify-center flex-col">
             <img

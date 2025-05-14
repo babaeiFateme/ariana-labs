@@ -1,11 +1,14 @@
 import img from "../../../../../public/images/pages/tweet/user.png";
+import EmptyState from "../../../atoms/EmptyState/EmptyState";
 import messageInfo from "./resources/message";
 const Message = () => {
+    const isEmpty = messageInfo.length === 0;
+
     return (
-        <ul className="*:bg-gray-650 *:mb-4 *:p-4 mt-4 *:rounded-md">
-            {messageInfo &&
-                messageInfo.map((tweet) => {
-                    return (
+        <>
+            {!isEmpty ? (
+                <ul className="*:bg-gray-650 *:mb-4 *:p-4 mt-4 *:rounded-md">
+                    {messageInfo.map((tweet) => (
                         <li key={tweet.id}>
                             <div className="flex gap-2.5 items-center flex-wrap">
                                 <img
@@ -15,7 +18,7 @@ const Message = () => {
                                 />
 
                                 <div className="flex flex-col items-start">
-                                    <span className="text-black font-medium text-md leading-3 mb-1-">
+                                    <span className="text-black font-medium text-md leading-3 mb-1">
                                         {tweet.username}
                                     </span>
 
@@ -29,9 +32,18 @@ const Message = () => {
                                 {tweet.message}
                             </div>
                         </li>
-                    );
-                })}
-        </ul>
+                    ))}
+                </ul>
+            ) : (
+                <EmptyState>
+                    <div className="text-medium font-thin">
+                        No results found for
+                        <span className="font-bold">“React”</span>. Try checking
+                        your spelling or using different keywords.
+                    </div>
+                </EmptyState>
+            )}
+        </>
     );
 };
 
