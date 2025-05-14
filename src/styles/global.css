@@ -47,8 +47,13 @@
     font-style: italic;
     src: url("../../public/fonts/Inter/inter-black.ttf");
     font-weight: 900;
+
 }
 
 body {
     font-family: "inter";
+}
+
+.padding-style{
+    padding-left: 32px;
 }

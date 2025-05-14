@@ -9,7 +9,7 @@ const Layout = () => {
             <Sidebar />
             <div>
                 <Header />
-                <div className="h-[calc(100vh-80px)]">
+                <div className="h-[calc(100vh-80px)] py-6 overflow-y-auto">
                     <Outlet />
                 </div>
             </div>

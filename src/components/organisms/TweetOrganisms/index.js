@@ -1,7 +1,1 @@
-const TweetOrganisms = () => {
-  return (
-    <div>TweetOrganisms</div>
-  )
-}
-
-export default TweetOrganisms
+export { default as TweetForm } from "./Form/TweetForm";

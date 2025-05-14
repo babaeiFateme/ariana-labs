@@ -7,27 +7,28 @@ import Register from "./pages/auth/Register";
 import Layout from "./components/layouts/Layout";
 import Login from "./pages/auth/Login";
 import NotFound from "./pages/not-found";
+import Tweet from "./pages/dashboard/Tweet";
 
 const App = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [token, setToken] = useState(null);
 
-    useEffect(() => {
-        const storedToken = localStorage.getItem("token");
+    // useEffect(() => {
+    //     const storedToken = localStorage.getItem("token");
 
-        setToken(storedToken);
+    //     setToken(storedToken);
 
-        if (storedToken) {
-            navigate(ROUTES.Dashboard);
-        } else if (!storedToken && location.pathname.includes("dashboard")) {
-            navigate(ROUTES.Login);
-        }
+    //     if (storedToken) {
+    //         navigate(ROUTES.Dashboard);
+    //     } else if (!storedToken && location.pathname.includes("dashboard")) {
+    //         navigate(ROUTES.Login);
+    //     }
 
-        if (storedToken && !location.pathname.includes("dashboard")) {
-            navigate(ROUTES.Dashboard);
-        }
-    }, [navigate]);
+    //     if (storedToken && !location.pathname.includes("dashboard")) {
+    //         navigate(ROUTES.Dashboard);
+    //     }
+    // }, [navigate]);
     
     return (
         <Routes>
@@ -36,6 +37,7 @@ const App = () => {
 
             <Route path={ROUTES.Dashboard} element={<Layout />}>
                 <Route index element={<Dashboard />} />
+                <Route path={ROUTES.Tweet} element={<Tweet />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
