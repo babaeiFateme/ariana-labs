@@ -33,7 +33,7 @@ const Sidebar = () => {
             },
             onSuccess: (result) => {
                 useData(result);
-                console.log(data.first_name);
+                localStorage.setItem("user", JSON.stringify(result));
             },
             onError: (error) => {
                 console.error("Failed to fetch messages:", error.message);
