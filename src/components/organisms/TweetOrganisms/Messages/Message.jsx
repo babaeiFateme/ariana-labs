@@ -49,15 +49,26 @@ const Message = ({ shouldRefetch, searchTerm }) => {
                 "X-CSRFToken": localStorage.getItem("token") ?? "",
             },
             onSuccess: () => {
-                setData(data.filter((item) => item.id !== tweetId));
+                const updatedData = data.filter((item) => item.id !== tweetId);
+                const isNowEmpty = updatedData.length === 0;
+    
+                if (isNowEmpty && currentPage > 1) {
+                    
+                    setCurrentPage((prev) => prev - 1);
+                } else {
+                    
+                    fetchMessages();
+                }
             },
             onError: (error) => {
                 console.error("Failed to delete message:", error.message);
             },
         });
-
+    
         setOpenDropdownId(null);
     };
+    
+    
 
     useEffect(() => {
         fetchMessages();
