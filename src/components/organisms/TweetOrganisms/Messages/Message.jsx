@@ -7,13 +7,14 @@ import Skeleton from "../../../atoms/Skeleton/Skeleton";
 import Button from "../../../atoms/Button/Button";
 import Trash from "../../../icons/Trash";
 import PaginationHandler from "../../../molecule/Pagination/PaginationHandler";
-import avatar from "../../../../../public/images/_general/avatar.png"
+import avatar from "../../../../../public/images/_general/avatar.png";
+import ArrowRight from "../../../icons/ArrowRight";
+import ArrowLeft from "../../../icons/ArrowLeft";
 
 const countPerPage = 5;
 const Message = ({ shouldRefetch, searchTerm }) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const { fetchData, isLoading, isError } = useFetch();
-
 
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -152,13 +153,13 @@ const Message = ({ shouldRefetch, searchTerm }) => {
 
             {!isEmpty && totalPages > 1 && (
                 <div className="flex justify-center gap-2 mt-6 flex-wrap">
-                    <Button
+                    <Button    
                         variant="secondary"
-                        className="w-fit"
+                        className="w-fit "
                         disabled={currentPage === 1}
                         onClick={() => setCurrentPage((prev) => prev - 1)}
                     >
-                        Prev
+                        <ArrowLeft />
                     </Button>
 
                     {PaginationHandler(currentPage, totalPages, setCurrentPage)}
@@ -169,7 +170,7 @@ const Message = ({ shouldRefetch, searchTerm }) => {
                         disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage((prev) => prev + 1)}
                     >
-                        Next
+                        <ArrowRight />
                     </Button>
                 </div>
             )}
