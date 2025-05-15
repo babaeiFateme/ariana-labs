@@ -11,7 +11,7 @@ import useFormValidation from "../../../../core/hooks/useFormValidation";
 import avatar from "../../../../../public/images/_general/avatar.png";
 import { useRef } from "react";
 
-const TweetForm = ({ onPostSuccess, searchTerm, setSearchTerm }) => {
+const TweetForm = ({  searchTerm, setSearchTerm, insetNewTweet }) => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     const formRef = useRef(null);
@@ -31,6 +31,10 @@ const TweetForm = ({ onPostSuccess, searchTerm, setSearchTerm }) => {
         { text: "" },
         validationRules
     );
+    const onFormSuccess = (result) => {
+        formRef.current?.reset()
+        insetNewTweet(result)
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,8 +50,7 @@ const TweetForm = ({ onPostSuccess, searchTerm, setSearchTerm }) => {
                 },
 
                 onSuccess: (result) => {
-                    onPostSuccess?.();
-                    formRef.current?.reset();
+                    onFormSuccess(result);
                 },
 
                 onError: (error) => {
@@ -97,11 +100,13 @@ const TweetForm = ({ onPostSuccess, searchTerm, setSearchTerm }) => {
                         </div>
 
                         <Button
+                         disabled={isLoading}
                             type="submit"
                             variant="primary"
                             className="w-fit block mr-0 ml-auto py-2 !px-[25px] mt-2"
                         >
-                            Post
+                             {isLoading ? "Loading..." : "Post"}
+                            
                         </Button>
                     </div>
                 </form>

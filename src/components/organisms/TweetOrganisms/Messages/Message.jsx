@@ -12,11 +12,11 @@ import ArrowRight from "../../../icons/ArrowRight";
 import ArrowLeft from "../../../icons/ArrowLeft";
 
 const countPerPage = 5;
-const Message = ({ shouldRefetch, searchTerm }) => {
+const Message = ({ data, setData, searchTerm }) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const { fetchData, isLoading, isError } = useFetch();
 
-    const [data, setData] = useState([]);
+   
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [openDropdownId, setOpenDropdownId] = useState(null);
@@ -71,7 +71,7 @@ const Message = ({ shouldRefetch, searchTerm }) => {
 
     useEffect(() => {
         fetchMessages();
-    }, [shouldRefetch, searchTerm, currentPage]);
+    }, [ searchTerm, currentPage]);
 
     if (isLoading) return <Skeleton />;
     if (isError) return <div>Error loading messages.</div>;
