@@ -6,13 +6,39 @@ import TimeHandler from "../../../../core/helpers/TimeHandler";
 import Skeleton from "../../../atoms/Skeleton/Skeleton";
 import Button from "../../../atoms/Button/Button";
 import Trash from "../../../icons/Trash";
+import PaginationHandler from "../../../molecule/Pagination/PaginationHandler";
+
+const countPerPage = 5;
 
 const Message = ({ shouldRefetch, searchTerm }) => {
     const { fetchData, isLoading, isError } = useFetch();
 
-    const [data, setData] = useState(null);
-
+    const [data, setData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const [openDropdownId, setOpenDropdownId] = useState(null);
+
+    const isEmpty = !data || data.length === 0;
+
+    const fetchMessages = () => {
+        const searchQuery = searchTerm ? `&search=${searchTerm}` : "";
+
+        fetchData({
+            url: `${API_ENDPOINTS.tweet}?page=${currentPage}&count_per_page=${countPerPage}${searchQuery}`,
+            method: "GET",
+            headers: {
+                Authorization: `Token ${localStorage.getItem("token")}`,
+                "X-CSRFToken": localStorage.getItem("token") ?? "",
+            },
+            onSuccess: (result) => {
+                setData(result.results);
+                setTotalPages(Math.ceil(result.count / countPerPage));
+            },
+            onError: (error) => {
+                console.error("Failed to fetch messages:", error.message);
+            },
+        });
+    };
 
     const handleSelect = (tweetId) => {
         fetchData({
@@ -34,40 +60,8 @@ const Message = ({ shouldRefetch, searchTerm }) => {
     };
 
     useEffect(() => {
-        fetchData({
-            url: API_ENDPOINTS.tweet,
-            method: "GET",
-            headers: {
-                Authorization: `Token ${localStorage.getItem("token")}`,
-                "X-CSRFToken": localStorage.getItem("token") ?? "",
-            },
-            onSuccess: (result) => {
-                setData(result.results);
-            },
-            onError: (error) => {
-                console.error("Failed to fetch messages:", error.message);
-            },
-        });
-    }, [shouldRefetch]);
-
-    useEffect(() => {
-        fetchData({
-            url: `https://mock.arianalabs.io/api/tweet/?search=${searchTerm}`,
-            method: "GET",
-            headers: {
-                Authorization: `Token ${localStorage.getItem("token")}`,
-                "X-CSRFToken": localStorage.getItem("token") ?? "",
-            },
-            onSuccess: (result) => {
-                setData(result.results);
-            },
-            onError: (error) => {
-                console.error("Failed to fetch messages:", error.message);
-            },
-        });
-    }, [searchTerm]);
-
-    const isEmpty = !data || data.length === 0;
+        fetchMessages();
+    }, [shouldRefetch, searchTerm, currentPage]);
 
     if (isLoading) return <Skeleton />;
     if (isError) return <div>Error loading messages.</div>;
@@ -97,7 +91,7 @@ const Message = ({ shouldRefetch, searchTerm }) => {
                                 </div>
 
                                 {JSON.parse(localStorage.getItem("user"))
-                                    .username == tweet.author.username ? (
+                                    ?.username === tweet.author.username && (
                                     <div className="relative">
                                         <Button
                                             className="!bg-transparent py-0 w-fit"
@@ -126,8 +120,6 @@ const Message = ({ shouldRefetch, searchTerm }) => {
                                             </ul>
                                         )}
                                     </div>
-                                ) : (
-                                    ""
                                 )}
                             </div>
 
@@ -145,6 +137,30 @@ const Message = ({ shouldRefetch, searchTerm }) => {
                         checking your spelling or using different keywords.
                     </div>
                 </EmptyState>
+            )}
+
+            {!isEmpty && totalPages > 1 && (
+                <div className="flex justify-center gap-2 mt-6 flex-wrap">
+                    <Button
+                        variant="secondary"
+                        className='w-fit'
+                        disabled={currentPage === 1}
+                        onClick={() => setCurrentPage((prev) => prev - 1)}
+                    >
+                        Prev
+                    </Button>
+
+                    {PaginationHandler(currentPage, totalPages, setCurrentPage)}
+
+                    <Button
+                        variant="secondary"
+                        className='w-fit'
+                        disabled={currentPage === totalPages}
+                        onClick={() => setCurrentPage((prev) => prev + 1)}
+                    >
+                        Next
+                    </Button>
+                </div>
             )}
         </>
     );
