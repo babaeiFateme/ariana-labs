@@ -1,3 +1,5 @@
+import React from "react";
+
 const ArrowRight = () => {
     return (
         <>
@@ -17,4 +19,4 @@ const ArrowRight = () => {
     );
 };
 
-export default ArrowRight;
+export default React.memo(ArrowRight);
