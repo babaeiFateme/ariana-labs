@@ -57,3 +57,12 @@ body {
 .padding-style{
     padding-left: 32px;
 }
+
+.custom-file-input {
+    display: none;
+  }
+
+
+  .file-name {
+    margin-left: 10px;
+  }

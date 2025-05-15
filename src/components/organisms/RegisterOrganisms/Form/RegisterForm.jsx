@@ -13,7 +13,19 @@ const RegisterForm = () => {
     const { fetchData, isLoading } = useFetch();
     const navigate = useNavigate();
     const [registerError, setRegisterError] = useState("");
-    const [previewAvatar, setPreviewAvatar] = useState(avatar);
+    const [file, setFile] = useState(null);
+
+    const [image, setImage] = useState(null);
+
+    const handleChangeImg = (e) => {
+        const file = e.target.files[0];
+        setFile(file);
+
+        if (file) {
+            setImage(URL.createObjectURL(file));
+            // handleChange({ target: { name: "avatar", value: file } });
+        }
+    };
 
     const validationRules = {
         first_name: {
@@ -45,25 +57,16 @@ const RegisterForm = () => {
         },
     };
 
-    const { form, errors, handleChange, validate, setForm } = useFormValidation(
+    const { form, errors, handleChange, validate } = useFormValidation(
         {
             first_name: "",
             last_name: "",
             username: "",
             password: "",
             confirm_password: "",
-            file: null,
         },
         validationRules
     );
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setForm((prev) => ({ ...prev, file }));
-            setPreviewAvatar(URL.createObjectURL(file));
-        }
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -83,8 +86,11 @@ const RegisterForm = () => {
         formData.append("password", form.password);
         formData.append("confirm_password", form.confirm_password);
 
-        if (form.file) {
-            formData.append("avatar", form.file);
+        if (file) {
+            console.log(file, "fgfgf");
+            formData.append("avatar", file);
+            
+            console.log(form); //avatar null why?
         }
 
         fetchData({
@@ -110,27 +116,27 @@ const RegisterForm = () => {
             <div className="flex flex-col gap-y-4 mb-4">
                 {/* Uploader */}
                 <div className="px-2.5 py-3 bg-white border border-[#E2E8F0] rounded-md flex justify-between items-center">
-                    <img
-                        className="w-12 aspect-square rounded-full object-cover"
-                        src={previewAvatar || "https://via.placeholder.com/48"}
-                        alt="avatar preview"
-                    />
-
-                    <label className="cursor-pointer">
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            className="hidden"
+                    <div>
+                        <img
+                            src={image ? image : avatar}
+                            alt="Preview"
+                            className="w-12 aspect-square rounded-full object-cover"
                         />
-                        <Button
-                            className="border border-[#E2E8F0] rounded-md min-w-[64px] w-fit h-fit"
-                            size="sm"
-                            type="button"
-                        >
-                            Upload +
-                        </Button>
+                    </div>
+
+                    <label
+                        className="inline-block border border-[#E2E8F0] rounded-md min-w-[64px] w-fit h-fit p-2 cursor-pointer"
+                        for="fileInput"
+                    >
+                        Upload +
                     </label>
+                    <input
+                        type="file"
+                        id="fileInput"
+                        name="avatar"
+                        class="custom-file-input"
+                        onChange={handleChangeImg}
+                    />
                 </div>
 
                 <Field label="First name" name="first_name" errors={errors}>
