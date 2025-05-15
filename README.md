@@ -7,3 +7,13 @@ Installation: npm install
 Run: npm run dev
 
 react-route-version : "^7.6.0"
+
+Loggin:
+username : fbabaei
+password:123456@a
+
+Requirements:
+
+Reset the user's password
+
+Edit the user's tweet
