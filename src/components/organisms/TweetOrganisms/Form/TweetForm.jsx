@@ -8,9 +8,12 @@ import Button from "../../../atoms/Button/Button";
 import useFetch from "../../../../core/hooks/useFetch";
 import API_ENDPOINTS from "../../../../core/services/constants/routes.constants";
 import useFormValidation from "../../../../core/hooks/useFormValidation";
+import avatar from "../../../../../public/images/_general/avatar.png";
 import { useRef } from "react";
 
 const TweetForm = ({ onPostSuccess, searchTerm, setSearchTerm }) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
     const formRef = useRef(null);
 
     const searchRef = useRef("");
@@ -77,7 +80,7 @@ const TweetForm = ({ onPostSuccess, searchTerm, setSearchTerm }) => {
                     <div className="border border-gray-200 rounded-md p-4 mt-[22px]">
                         <div className="relative flex gap-2 items-start">
                             <img
-                                src={img}
+                                src={user.img ? user.img : avatar}
                                 alt="user"
                                 className="w-10 aspect-square rounded-full"
                             />

@@ -23,7 +23,6 @@ const RegisterForm = () => {
 
         if (file) {
             setImage(URL.createObjectURL(file));
-            // handleChange({ target: { name: "avatar", value: file } });
         }
     };
 

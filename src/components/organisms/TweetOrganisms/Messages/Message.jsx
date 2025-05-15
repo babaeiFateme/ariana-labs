@@ -7,11 +7,13 @@ import Skeleton from "../../../atoms/Skeleton/Skeleton";
 import Button from "../../../atoms/Button/Button";
 import Trash from "../../../icons/Trash";
 import PaginationHandler from "../../../molecule/Pagination/PaginationHandler";
+import avatar from "../../../../../public/images/_general/avatar.png"
 
 const countPerPage = 5;
-
 const Message = ({ shouldRefetch, searchTerm }) => {
+    const user = JSON.parse(localStorage.getItem("user"));
     const { fetchData, isLoading, isError } = useFetch();
+
 
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -51,12 +53,10 @@ const Message = ({ shouldRefetch, searchTerm }) => {
             onSuccess: () => {
                 const updatedData = data.filter((item) => item.id !== tweetId);
                 const isNowEmpty = updatedData.length === 0;
-    
+
                 if (isNowEmpty && currentPage > 1) {
-                    
                     setCurrentPage((prev) => prev - 1);
                 } else {
-                    
                     fetchMessages();
                 }
             },
@@ -64,11 +64,9 @@ const Message = ({ shouldRefetch, searchTerm }) => {
                 console.error("Failed to delete message:", error.message);
             },
         });
-    
+
         setOpenDropdownId(null);
     };
-    
-    
 
     useEffect(() => {
         fetchMessages();
@@ -86,15 +84,17 @@ const Message = ({ shouldRefetch, searchTerm }) => {
                             <div className="flex justify-between gap-2 items-center">
                                 <div className="flex gap-2.5 items-center flex-wrap">
                                     <img
-                                        src="/images/pages/tweet/user.png"
+                                        src={user.img ? user.img : avatar}
                                         alt="user"
-                                        className="w-8 aspect-square rounded-full"
+                                        className="w-8 aspect-square rounded-full border border-gray-100"
                                     />
+
                                     <div className="flex flex-col items-start">
                                         <span className="text-black font-medium text-md leading-3 mb-1">
                                             {tweet.author.first_name}
                                             {tweet.author.lname_name}
                                         </span>
+
                                         <span className="text-gray-900 text-sm font-light">
                                             {TimeHandler(tweet.created_at)}
                                         </span>
@@ -154,7 +154,7 @@ const Message = ({ shouldRefetch, searchTerm }) => {
                 <div className="flex justify-center gap-2 mt-6 flex-wrap">
                     <Button
                         variant="secondary"
-                        className='w-fit'
+                        className="w-fit"
                         disabled={currentPage === 1}
                         onClick={() => setCurrentPage((prev) => prev - 1)}
                     >
@@ -165,7 +165,7 @@ const Message = ({ shouldRefetch, searchTerm }) => {
 
                     <Button
                         variant="secondary"
-                        className='w-fit'
+                        className="w-fit"
                         disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage((prev) => prev + 1)}
                     >
