@@ -85,12 +85,7 @@ const RegisterForm = () => {
         formData.append("password", form.password);
         formData.append("confirm_password", form.confirm_password);
 
-        if (file) {
-            console.log(file, "fgfgf");
-            formData.append("avatar", file);
-            
-            console.log(form); //avatar null why?
-        }
+        if (file) formData.append("avatar", file);
 
         fetchData({
             url: API_ENDPOINTS.register,

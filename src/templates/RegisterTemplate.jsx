@@ -1,4 +1,3 @@
-import React from "react";
 import {
     RegisterForm,
     RegisterHeading,
@@ -17,7 +16,9 @@ const RegisterTemplate = () => {
                 <div className="flex gap-1 text-black font-regular text-sm items-center leading-5 justify-center">
                     <span>Don’t have an account ?</span>
 
-                    <Link href={ROUTES.Login} className="underline">Sign in</Link>
+                    <Link href={ROUTES.Login} className="underline">
+                        Sign in
+                    </Link>
                 </div>
             </div>
         </section>

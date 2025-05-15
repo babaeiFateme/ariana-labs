@@ -1,21 +1,19 @@
-import React from "react";
-
-const Field = ({ children, label, name, errors , className }) => {
+const Field = ({ children, label, name, errors, className }) => {
     const errorMessage = errors?.[name];
     return (
         <>
             <div className={className}>
                 <div className="w-full flex flex-col gap-y-2">
-                {label && (
-                    <label
-                        htmlFor={name}
-                        className={`text-sm font-medium leading-5 ${
-                            errorMessage ? "text-destructive" : ""
-                        }`}
-                    >
-                        {label}
-                    </label>
-                )}
+                    {label && (
+                        <label
+                            htmlFor={name}
+                            className={`text-sm font-medium leading-5 ${
+                                errorMessage ? "text-destructive" : ""
+                            }`}
+                        >
+                            {label}
+                        </label>
+                    )}
                     {children}
                 </div>
                 {errorMessage && (

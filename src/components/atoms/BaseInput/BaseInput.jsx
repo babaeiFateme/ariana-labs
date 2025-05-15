@@ -1,4 +1,3 @@
-import React from "react";
 import cn from "../../../core/utils/cn/cn.utils";
 
 const BaseInput = ({ className, ...props }) => {
